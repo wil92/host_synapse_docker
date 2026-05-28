@@ -1,0 +1,33 @@
+services:
+  synapse_db:
+    image: postgres:14-alpine
+    container_name: synapse_db
+    restart: always
+    networks:
+      - synapse_network
+    environment:
+      - POSTGRES_USER=${SYNAPSE_DB_USER}
+      - POSTGRES_PASSWORD=${SYNAPSE_DB_PASSWORD}
+      - POSTGRES_DB=${SYNAPSE_DB_NAME}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    volumes:
+      - ${SYNAPSE_DB_PATH}:/var/lib/postgresql/data
+
+  synapse:
+    image: matrixdotorg/synapse:latest
+    container_name: synapse_chat
+    restart: always
+    networks:
+      - synapse_network
+    depends_on:
+      - synapse_db
+    ports:
+      - "127.0.0.1:8008:8008"
+    volumes:
+      - ${SYNAPSE_DATA_PATH}:/data
+    environment:
+      - SYNAPSE_SERVER_NAME=family.guilledev.com
+      - SYNAPSE_REPORT_STATS=no
+
+networks:
+  synapse_network:
