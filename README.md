@@ -8,7 +8,7 @@ file and data directory from the host.
 ### 1. Create data directory and configuration file
 
 Found a directory on your host machine to store the Synapse data. For example, you can create a directory called
-`synapse-data` in your home directory. Then create the homeserver.yaml configuration file in that directory. You can use
+`synapse-data` in your home directory. Then create the `homeserver.yaml` configuration file in that directory. You can use
 the example configuration file provided by Synapse as an example:
 
 ```yaml
