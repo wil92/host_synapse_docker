@@ -13,6 +13,20 @@ services:
     volumes:
       - ${SYNAPSE_DB_PATH}:/var/lib/postgresql/data
 
+  coturn:
+    image: coturn/coturn:latest
+    container_name: synapse_turn
+    restart: always
+    networks:
+      - synapse_network
+    ports:
+      - "3478:3478/tcp"
+      - "3478:3478/udp"
+      - "5349:5349/tcp"
+      - "49152-49200:49152-49200/udp"
+    volumes:
+      - ./turnserver.conf:/etc/coturn/turnserver.conf
+
   synapse:
     image: matrixdotorg/synapse:latest
     container_name: synapse_chat
@@ -21,6 +35,7 @@ services:
       - synapse_network
     depends_on:
       - synapse_db
+      - coturn
     ports:
       - "127.0.0.1:8008:8008"
     volumes:
