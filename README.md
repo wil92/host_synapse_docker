@@ -33,13 +33,13 @@ database:
     port: 5432
     cp_min: 5
     cp_max: 10
-log_config: "/data/family.guilledev.com.log.config"
+log_config: "/data/guilledev.com.log.config"
 media_store_path: "/data/media_store"
 registration_shared_secret: "REDACTED"
 report_stats: true
 macaroon_secret_key: "REDACTED"
 form_secret: "REDACTED"
-signing_key_path: "/data/family.guilledev.com.signing.key"
+signing_key_path: "/data/guilledev.com.signing.key"
 trusted_key_servers:
   - server_name: "matrix.org"
 ```
