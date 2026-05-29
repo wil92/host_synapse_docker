@@ -23,9 +23,12 @@ services:
       - "3478:3478/tcp"
       - "3478:3478/udp"
       - "5349:5349/tcp"
-      - "49152-49200:49152-49200/udp"
+      - "5349:5349/udp"
+      - "49152-49600:49152-49600/udp"
     volumes:
       - ./turnserver.conf:/etc/coturn/turnserver.conf
+      - /home/app/synapse_chat/nginx/certbot/live/family.guilledev.com/:/certs
+    command: ["-c", "/etc/coturn/turnserver.conf"]
 
   synapse:
     image: matrixdotorg/synapse:latest
@@ -43,6 +46,17 @@ services:
     environment:
       - SYNAPSE_SERVER_NAME=family.guilledev.com
       - SYNAPSE_REPORT_STATS=no
+
+  synapse_web:
+    image: vectorim/element-web:latest
+    container_name: synapse_web
+    restart: always
+    networks:
+      - synapse_network
+    ports:
+      - "127.0.0.1:9271:80"
+    volumes:
+      - ./element-config.json:/app/config.json
 
 networks:
   synapse_network:

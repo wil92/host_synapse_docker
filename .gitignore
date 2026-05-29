@@ -3,3 +3,6 @@
 
 data
 db
+
+element-config.json
+turnserver.conf
