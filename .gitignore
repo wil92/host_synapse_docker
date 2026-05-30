@@ -6,3 +6,6 @@ db
 
 element-config.json
 turnserver.conf
+homeserver.yaml
+livekit-config.yaml
+
